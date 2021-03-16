@@ -68,6 +68,27 @@
    $is_b_instr = $instr[6:2] ==? 5'b11000;
    $is_j_instr = $instr[6:2] ==? 5'b11011;
    
+   // Decode instruction fields
+   $funct7[6:0] = $instr[31:25];
+   $funct3[2:0] = $instr[14:12];
+   $rs1[4:0] = $instr[19:15];
+   $rs2[4:0] = $instr[24:20];
+   $rd[4:0] = $instr[11:7];
+   $opcode[6:0] = $instr[6:0];
+   
+   $funct7_valid = $is_r_instr;
+   $rs1_valid = $is_r_instr ||
+                $is_i_instr ||
+                $is_s_instr ||
+                $is_b_instr;
+   $funct3_valid = $rs1_valid;
+   $rs2_valid = $rs1_valid && !$is_i_instr;
+   $rd_valid = !($is_s_instr || $is_b_instr);
+   $imm_valid = !$is_r_instr;
+
+   `BOGUS_USE($rd $rd_valid $rs1 $rs1_valid $rs2 $rs2_valid
+      $funct3 $funct3_valid $funct7 $funct7_valid)
+   
    // Assert these to end simulation (before Makerchip cycle limit).
    *passed = 1'b0;
    *failed = *cyc_cnt > M4_MAX_CYC;
