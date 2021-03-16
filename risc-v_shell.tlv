@@ -53,6 +53,21 @@
    // Memory implementation
    `READONLY_MEM($pc, $$instr[31:0])
    
+   // Decoder implementation
+   $is_u_instr = $instr[6:2] ==? 5'b0x101;
+   
+   $is_r_instr = $instr[6:2] ==? 5'b01011 ||
+                 $instr[6:2] ==? 5'b011x0 ||
+                 $instr[6:2] ==? 5'b10100;
+   
+   $is_i_instr = $instr[6:2] ==? 5'b0000x ||
+                 $instr[6:2] ==? 5'b001x0 ||
+                 $instr[6:2] ==? 5'b11001;
+   
+   $is_s_instr = $instr[6:2] ==? 5'b1000x;
+   $is_b_instr = $instr[6:2] ==? 5'b11000;
+   $is_j_instr = $instr[6:2] ==? 5'b11011;
+   
    // Assert these to end simulation (before Makerchip cycle limit).
    *passed = 1'b0;
    *failed = *cyc_cnt > M4_MAX_CYC;
