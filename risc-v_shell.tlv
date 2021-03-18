@@ -68,7 +68,7 @@
    $is_b_instr = $instr[6:2] ==? 5'b11000;
    $is_j_instr = $instr[6:2] ==? 5'b11011;
    
-   // Decode instruction fields
+   // Decode instruction fields implementation
    $funct7[6:0] = $instr[31:25];
    $funct3[2:0] = $instr[14:12];
    $rs1[4:0] = $instr[19:15];
@@ -93,7 +93,7 @@
                 $is_j_instr? {  {12{$instr[31]}}, $instr[19:12], $instr[20], $instr[30:21], 1'b0  } :
                 32'b0;
    
-   // Instruction mnemonics decoding
+   // Instruction mnemonics decoding inplementation
    $dec_bits[10:0] = {$funct7[5],$funct3,$opcode};
    
    $is_beq = $dec_bits ==? 11'bx_000_1100011;
@@ -107,7 +107,7 @@
    
    $is_add = $dec_bits ==? 11'b0_000_0110011;
    
-   // Implement ADD and ADDI instructions
+   // ADD and ADDI instructions inplementation
    $result[31:0] =
     $is_addi ? $src1_value + $imm :
     $is_add ? $src1_value +  $src2_value:
