@@ -34,7 +34,7 @@
                  $instr[6:2] ==? 5'b001x0 ||
                  $instr[6:2] ==? 5'b11001;
 
-   $is_s_instr = $instr[6:2] ==? 5'b1000x;
+   $is_s_instr = $instr[6:2] ==? 5'b0100x;
    $is_b_instr = $instr[6:2] ==? 5'b11000;
    $is_j_instr = $instr[6:2] ==? 5'b11011;
 
