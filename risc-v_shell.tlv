@@ -158,10 +158,12 @@
       0;
 
    $br_tgt_pc[31:0] = $pc + $imm;
+   $jalr_tgt_pc[31:0] = $src1_value + $imm;
 
    $next_pc[31:0] =
       $reset? 0 :
-      $taken_branch ? $br_tgt_pc :
+      ($taken_branch || $is_jal) ? $br_tgt_pc :
+      $is_jalr ? $jalr_tgt_pc :
       $pc + 32'd4;
 
    `BOGUS_USE($is_beq $is_bne $is_blt $is_bge $is_bltu $is_bgeu $is_addi $is_add)
