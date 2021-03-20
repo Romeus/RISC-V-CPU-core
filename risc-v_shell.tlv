@@ -99,7 +99,7 @@
    $is_or = $dec_bits ==? 11'b0_110_0110011;
    $is_and = $dec_bits ==? 11'b0_111_0110011;
 
-   $is_load = $dec_bits ==? 11'bx_xxx_0x00011;
+   $is_load = $opcode ==? 7'b0000011;
 
    // SLTU and SLTI (set if less than, unsigned) results:
    $sltu_rslt[31:0] = { 31'b0, $src1_value < $src2_value };
